@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<title>My Test App</title>
+	<head></head>
+	<body>
+		<h1>Hello world! from {{ source }}</h1>
+		<h5>Un h5</h5>
+		<input id="n1" type="number" value="0">
+		<input id="n2" type="number" value="0"><br>
+		<input id="b1" type="button" value="sum" onClick="sumValues()">
+		<p><b>Result: </b></p> <p id="result"></p>
+	</body>
+	
+	<script type="text/javascript">
+		function sumValues(){
+			var res = parseInt(document.getElementById('n1').value) + parseInt(document.getElementById('n2').value);
+			document.getElementById('result').innerHTML = res;
+		}
+	</script>
+
+</html>

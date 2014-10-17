@@ -24,7 +24,7 @@ class MainHandler(webapp2.RequestHandler):
     	templateValues = {
             'source':      "Template"
         }
-    	mainPageTemplate = os.path.join(os.path.dirname(__file__), 'MainPage.html')
+    	mainPageTemplate = os.path.join(os.path.dirname(__file__), 'Views/MainPage.html')
         self.response.write(render(mainPageTemplate, templateValues))
 
 
