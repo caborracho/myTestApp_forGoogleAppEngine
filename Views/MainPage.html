@@ -8,13 +8,39 @@
 		<input id="n1" type="number" value="0">
 		<input id="n2" type="number" value="0"><br>
 		<input id="b1" type="button" value="sum" onClick="sumValues()">
-		<p><b>Result: </b></p> <p id="result"></p>
+		<input id="b2" type="button" value="sum with Server" onClick="sumValuesWithServer()">
+		<p><b>Result: </b></p> <p id="result"></p><br>
+		<p><b>Result from server: </b></p> <p id="resultServer"></p>
 	</body>
 	
 	<script type="text/javascript">
 		function sumValues(){
 			var res = parseInt(document.getElementById('n1').value) + parseInt(document.getElementById('n2').value);
 			document.getElementById('result').innerHTML = res;
+		}
+
+		function sumValuesWithServer(){
+			n1 = document.getElementById('n1').value
+			n2 = document.getElementById('n2').value
+
+			var xmlhttp;
+			if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp=new XMLHttpRequest();}
+			else{// code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
+
+			  
+			xmlhttp.open("GET","sumfuction?first="+n1+"&second="+n2,true);
+			xmlhttp.send();
+			xmlhttp.onreadystatechange=function(){
+				if (xmlhttp.readyState < 4) {
+					document.getElementById("resultServer").innerHTML="Loading... ";
+				}
+				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+					document.getElementById("resultServer").innerHTML=xmlhttp.responseText;
+				}
+			}
+			
 		}
 	</script>
 
