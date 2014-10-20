@@ -3,21 +3,27 @@
 	<title>My Test App</title>
 	<head></head>
 	<body>
-		<h1>Hello world! from {{ source }}</h1>
-		<h5>Un h5</h5>
+		<h3>Hello world! from {{ source }}</h3>
 		<input id="n1" type="number" value="0">
 		<input id="n2" type="number" value="0"><br>
 		<input id="b1" type="button" value="sum" onClick="sumValues()">
-		<input id="b2" type="button" value="sum with Server" onClick="sumValuesWithServer()">
-		<p><b>Result: </b></p> <p id="result"></p><br>
+		<input id="b2" type="button" value="sum with Server" onClick="sumValuesWithServer()"><br>
+		<form>
+			<b>Result: </b>
+			<input id="result" type="number" size="5" readonly><br>	
+		</form>
 		<p><b>Result from server: </b></p> <p id="resultServer"></p>
+
+		<input id="sumHystoryButton" type="button" value="Show all sums done with Server" onClick="showSumServerHystory()"><br>
 	</body>
 	
 	<script type="text/javascript">
 		function sumValues(){
 			var res = parseInt(document.getElementById('n1').value) + parseInt(document.getElementById('n2').value);
-			document.getElementById('result').innerHTML = res;
+			//document.getElementById('result').innerHTML = res;
+			document.getElementById('result').value= res;
 		}
+
 
 		function sumValuesWithServer(){
 			n1 = document.getElementById('n1').value
@@ -28,20 +34,54 @@
 				xmlhttp=new XMLHttpRequest();}
 			else{// code for IE6, IE5
 				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
-
-			  
+			//make the request
 			xmlhttp.open("GET","sumfuction?first="+n1+"&second="+n2,true);
 			xmlhttp.send();
-			xmlhttp.onreadystatechange=function(){
+			xmlhttp.OnReadyStateChange=function(){
 				if (xmlhttp.readyState < 4) {
-					document.getElementById("resultServer").innerHTML="Loading... ";
-				}
+					document.getElementById("resultServer").innerHTML="Loading... ";}
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
-					document.getElementById("resultServer").innerHTML=xmlhttp.responseText;
-				}
-			}
-			
+					document.getElementById("resultServer").innerHTML=xmlhttp.responseText;}
+			}			
 		}
+
+		function showSumServerHystory(){
+			var newElement = document.createElement("span");
+
+			//newElement.innerHTML = "I'm a new Node :D"
+			newElement.setAttribute("id","sumHitoryStream")
+			insertAfter(newElement, document.getElementById("sumHystoryButton").nextSibling)
+			//nextSibling means next element
+
+			var xmlhttp;
+			if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp=new XMLHttpRequest();}
+			else{// code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}
+			//make the request
+			xmlhttp.open("GET","sumhistory",true);
+			xmlhttp.send();
+			xmlhttp.OnReadyStateChange=function(){
+				if (xmlhttp.readyState < 4) {
+					document.getElementById("sumHitoryStream").innerHTML="Loading... ";}
+				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+					document.getElementById("sumHitoryStream").innerHTML=xmlhttp.responseText;}
+			}			
+		}
+
+		
+		function insertAfter(newElement,targetElement){
+	    	//target is what you want it to go after. Look for this elements parent.
+		    var parent = targetElement.parentNode;
+
+		    //if the parents lastchild is the targetElement...
+		    if(parent.lastchild == targetElement) {
+		        //add the newElement after the target element.
+		        parent.appendChild(newElement);} 
+			else {// else the target has siblings, insert the new element between the target and it's next sibling.
+		        parent.insertBefore(newElement, targetElement.nextSibling);}
+		}
+
 	</script>
 
 </html>
