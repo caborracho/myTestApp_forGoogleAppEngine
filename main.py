@@ -17,6 +17,9 @@
 import os
 import webapp2
 from google.appengine.ext.webapp.template import render
+from Models.SumEntity import SumEntity as Sum 
+
+
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -33,13 +36,21 @@ class SumHandler(webapp2.RequestHandler):
 			first = int(self.request.get('first'))
 			second = int(self.request.get('second'))
 			self.response.write(str(first + second))
+			self.mySum = Sum(first,second, first+second)
+			self.mySum.store()			
         
-		except (TypeError, ValueError):
-			self.response.write("Invalid inputs")
+		except Exception as e:
+			self.response.write(repr(e))
 
-		
+class SumHistoryHandler(webapp2.RequestHandler):
+	"""docstring for SumHystoryHandler"""
+	def get(self):
+		self.sums = Sum.getAll()
+		for self.sum in self.sums:
+			self.response.write("<p>%s+%s=%s</p>" % (self.sum.getN1(),self.sum.getN2(),self.sum.getResult()))
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/sumfuction', SumHandler)
+    ('/sumfuction', SumHandler),
+    ('/sumhistory', SumHistoryHandler)
 ], debug=True)

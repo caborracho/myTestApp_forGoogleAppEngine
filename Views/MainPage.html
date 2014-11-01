@@ -37,7 +37,7 @@
 			//make the request
 			xmlhttp.open("GET","sumfuction?first="+n1+"&second="+n2,true);
 			xmlhttp.send();
-			xmlhttp.OnReadyStateChange=function(){
+			xmlhttp.onreadystatechange=function(){
 				if (xmlhttp.readyState < 4) {
 					document.getElementById("resultServer").innerHTML="Loading... ";}
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
@@ -61,7 +61,7 @@
 			//make the request
 			xmlhttp.open("GET","sumhistory",true);
 			xmlhttp.send();
-			xmlhttp.OnReadyStateChange=function(){
+			xmlhttp.onreadystatechange=function(){
 				if (xmlhttp.readyState < 4) {
 					document.getElementById("sumHitoryStream").innerHTML="Loading... ";}
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
