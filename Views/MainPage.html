@@ -2,20 +2,24 @@
 <html>
 	<title>My Test App</title>
 	<head>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src= {{ jQuerySource }}  ></script>
+		<link href="/stylesheets/MainPage.css" media="screen" rel="Stylesheet" type="text/css" />
 	</head>
 	<body>
-		<h3>Hello world from {{ source }}</h3>
-		<input id="n1" type="number" value="0">
-		<input id="n2" type="number" value="0"><br>
-		<input id="b1" type="button" value="sum" onClick="sumValues()">
-		<input id="b2" type="button" value="sum with Server" onClick="sumValuesWithServer()"><br>
-		<form>
-			<b>Result: </b>
-			<input id="result" type="number" size="5" readonly><br>	
-		</form>
-		<p><b>Result from server: </b></p> <p id="resultServer"></p>
-
+		<h3>Hello {{ userName }} from {{ source }}</h3>
+		<div class="card">
+			<input id="n1" type="number" value="0">
+			<input id="n2" type="number" value="0"><br>
+			<input id="b1" type="button" value="sum" onClick="sumValues()">
+			<input id="b2" class="button" type="button" value="sum with Server" onClick="sumValuesWithServer()"><br>
+		
+			<form>
+				<b>Result: </b>
+				<input id="result" type="number" size="5" readonly><br>	
+				<p><b>Result from server: </b></p> <p id="resultServer"></p>
+			</form>
+			
+		</div>
 		<input id="sumHystoryButton" type="button" value="Show all sums done with Server" onClick="showSumServerHystory()"><br>
 		
 	</body>
@@ -33,7 +37,7 @@
 			var n2 = $('#n2').val();//document.getElementById('n2').value;
 
 			var parammenters = "first="+n1+"&second="+n2;
-			requestAsyncAndLoadIntoElement("sumfuction",parammenters,$('#resultServer'));
+			requestAsyncAndLoadIntoElement("sumfunction",parammenters,$('#resultServer'));
 		}
 
 		function showSumServerHystory(){

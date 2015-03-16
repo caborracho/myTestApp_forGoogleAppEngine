@@ -1,0 +1,18 @@
+body {
+	background-color: #E0E0E0
+}
+
+.button
+{
+	margin: 9px;
+}
+
+.card{
+	background-color: white;
+	margin-top: 20px;
+	box-shadow: 2px 2px 5px black;
+	padding-top: 7px;
+	padding-left: 7px;
+	margin-bottom: 10px;
+	width: 390px;
+}
